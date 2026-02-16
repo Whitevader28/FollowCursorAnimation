@@ -1,22 +1,9 @@
-console.log('inside');
-
 const img = document.getElementById('card');
 const imgBounds = img.getBoundingClientRect();
-console.log(imgBounds);
 
 const imgCenter = {
 	x: imgBounds.x + imgBounds.width / 2,
 	y: imgBounds.y + imgBounds.height / 2
-}
-
-function pointerColision(rect, {x, y}) {
-	if (x > rect.x && x < rect.x + rect.width &&
-	    y > rect.y && y < rect.y + rect.height) 
-	{
-		return true;
-	}
-
-	return false;
 }
 
 function handleMouseHover() {
@@ -40,16 +27,14 @@ function handleMouseHover() {
 		y: (normalizedCenter.y - normalizedMouse.y) / normalizedCenter.y
 	}
 	const dimFactor = 10;
-	const translateFactor = 10;
+	const rotateFactor = 10;
 	const scaleFactor = 3;
 
-	const rX = 1 + ratio.y * translateFactor;
-	const rY = 1 + ratio.x * translateFactor;
-	console.log(rX);
-	console.log(rY);
+	const rX = 1 + ratio.y * rotateFactor;
+	const rY = 1 - ratio.x * rotateFactor;
 
 	img.style.filter = `brightness(${1 + ratio.y / dimFactor})`;
-	img.style.transform = `scale(${scaleFactor}) rotateX(${- rX}deg) rotateY(${rY}deg)`;
+	img.style.transform = `scale(${scaleFactor}) rotateX(${rX}deg) rotateY(${rY}deg)`;
 }
 
 img.addEventListener('mouseover', function(event) {
